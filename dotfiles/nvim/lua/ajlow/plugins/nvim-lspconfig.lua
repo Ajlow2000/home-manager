@@ -63,11 +63,14 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
-        -- Setup language servers.
+        -- <><><><> Setup language servers. <><><><>
         lspconfig.nixd.setup { capabilities = capabilities }
         lspconfig.bashls.setup { capabilities = capabilities }
         lspconfig.gopls.setup { capabilities = capabilities }
-        lspconfig.ocamllsp.setup { capabilities = capabilities }
+        lspconfig.ocamllsp.setup {
+            capabilities = capabilities,
+            on_attach = require("virtualtypes").on_attach,
+        }
         lspconfig.rust_analyzer.setup { capabilities = capabilities }
         lspconfig.pyright.setup { capabilities = capabilities }
         lspconfig.clangd.setup { capabilities = capabilities }
